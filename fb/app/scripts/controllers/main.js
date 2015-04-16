@@ -16,10 +16,11 @@ angular.module('quieroquieroApp')
     ];
     var ref = new Firebase( 'https://quieroquiero.firebaseio.com/' );
     ref.onAuth(function(authData) {
-      if (authData !== null) {
+      if (authData) {
         $scope.user = authData.facebook;
-          console.log( $scope.user );
-        };
+        console.log( $scope.user );
+      } else {
+        ref.authWithOAuthRedirect("facebook", function(error, authData) { /* Redirect */ });
+      };
     });
-    ref.authWithOAuthRedirect("facebook", function(error, authData) { /* Redirect */ });
   });
