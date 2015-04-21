@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $firebase) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -32,6 +32,17 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  var ref = new Firebase( 'https://quieroquiero.firebaseio.com/' );
+  ref.onAuth(function(authData) {
+    if (authData) {
+      $scope.user = authData.facebook;
+      console.log( $scope.user );
+    } else {
+      ref.authWithOAuthRedirect('facebook', function(/*error, authData*/) { /* Redirect */ });
+    }
+  });
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -45,7 +56,18 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function(
-  //$scope, $stateParams
-  ) {
+.controller('PlaylistCtrl', function($scope /*$stateParams*/) {
+  $scope.cards = [
+    { /* card 1*/ },
+    { /* card 2*/ }
+  ];
+
+  $scope.cardDestroyed = function(index) {
+    $scope.cards.splice(index, 1);
+  };
+
+  $scope.cardSwiped = function(index) {
+    var newCard = // new card data
+    $scope.cards.push(newCard);
+  };
 });
