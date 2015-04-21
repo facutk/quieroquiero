@@ -1,4 +1,4 @@
-# ![QuieroQuiero](https://raw.githubusercontent.com/facutk/quieroquiero/master/fb/app/images/QQ_60.png) QuieroQuiero
+# ![QuieroQuiero](https://raw.githubusercontent.com/facutk/quieroquiero/master/fb/app/images/QQ_32.png) QuieroQuiero
 
 ## Instalación
 ###Prerequisitos
