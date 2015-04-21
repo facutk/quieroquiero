@@ -44,6 +44,10 @@ bower install
 npm install grunt-karma karma-phantomjs-launcher karma-jasmine --save-dev
 grunt
 ionic upload
+#ionic platform add android
+#cordova plugin add org.apache.cordova.inappbrowser
+#cordova plugin add https://github.com/bez4pieci/Phonegap-Cookies-Plugin.git
+#ionic run android
 ```
 
 ### Si algo falla

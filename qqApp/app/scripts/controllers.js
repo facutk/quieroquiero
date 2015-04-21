@@ -1,7 +1,7 @@
 'use strict';
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $firebase) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout/*, $firebase*/) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -33,19 +33,9 @@ angular.module('starter.controllers', [])
     }, 1000);
   };
 
-  var ref = new Firebase( 'https://quieroquiero.firebaseio.com/' );
-  ref.onAuth(function(authData) {
-    if (authData) {
-      $scope.user = authData.facebook;
-      console.log( $scope.user );
-    } else {
-      ref.authWithOAuthRedirect('facebook', function(/*error, authData*/) { /* Redirect */ });
-    }
-  });
-
 })
 
-.controller('PlaylistsCtrl', function($scope) {
+.controller('PlaylistsCtrl', function($scope, $firebase) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -54,6 +44,38 @@ angular.module('starter.controllers', [])
     { title: 'Rap', id: 5 },
     { title: 'Cowbell', id: 6 }
   ];
+
+  $scope.name = 'QuieroQuiero';
+  $scope.fblogin = function () {
+    var ref = new Firebase( 'https://quieroquiero.firebaseio.com/' );
+    ref.onAuth(function(authData) {
+      console.log('onAuth Init');
+      if (authData) {
+        $scope.user = authData.facebook;
+
+        if( $scope.user ) {
+          if ($scope.user.cachedUserProfile) {
+            if ($scope.user.cachedUserProfile.first_name) {
+              $scope.name = $scope.user.cachedUserProfile.first_name;
+            }
+          }
+        }
+
+        console.log( $scope.user );
+      } else {
+
+        ref.authWithOAuthPopup('facebook', function(error, authData) {
+          if (error) {
+            console.log('Login Failed!', error);
+          } else {
+            console.log('Authenticated successfully with payload:', authData);
+          }
+        });
+
+      }
+    });  
+  };
+
 })
 
 .controller('PlaylistCtrl', function($scope /*$stateParams*/) {
