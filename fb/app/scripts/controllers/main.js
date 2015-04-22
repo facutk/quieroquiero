@@ -20,7 +20,14 @@ angular.module('quieroquieroApp')
         $scope.user = authData.facebook;
         console.log( $scope.user );
       } else {
-        ref.authWithOAuthRedirect('facebook', function(error, authData) { /* Redirect */ });
+        ref.authWithOAuthRedirect(
+          'facebook',
+          function(error, authData) { /* Redirect */ },
+          {
+            remember: 'default',
+            scope: 'email,user_friends'
+          }
+        );
       }
     });
   });
