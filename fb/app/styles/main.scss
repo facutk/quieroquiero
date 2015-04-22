@@ -24,7 +24,7 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #eeeeee;
   margin-bottom: 10px;
 
   /* Make the masthead heading the same height as the navigation */
@@ -40,7 +40,7 @@ body {
 .footer {
   padding-top: 19px;
   color: #777;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #eeeeee;
 }
 
 .container-narrow > hr {
@@ -88,4 +88,18 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.btn-facebook, .btn-facebook:hover {
+  color: #ffffff;
+  background-color: #4e69a2;
+  border-color: #4e69a2;
+  border-bottom: 1px solid #223770;
+  border-left: 1px solid #223770;
+  font-family: 'helvetica neue',helvetica,arial,'lucida grande',sans-serif;
+}
+
+.btn-facebook > img,
+.btn-facebook > span {
+  vertical-align: middle;
 }

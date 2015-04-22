@@ -34,6 +34,11 @@ angular
         url: '/about',
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .state('landing', {
+        url: '/landing',
+        templateUrl: 'views/landing.html',
+        controller: 'LandingCtrl'
       });
 
   });
