@@ -64,13 +64,20 @@ angular.module('starter.controllers', [])
         console.log( $scope.user );
       } else {
 
-        ref.authWithOAuthPopup('facebook', function(error, authData) {
-          if (error) {
-            console.log('Login Failed!', error);
-          } else {
-            console.log('Authenticated successfully with payload:', authData);
+        ref.authWithOAuthPopup(
+          'facebook',
+          function(error, authData) {
+            if (error) {
+              console.log('Login Failed!', error);
+            } else {
+              console.log('Authenticated successfully with payload:', authData);
+            }
+          },
+          {
+            remember: 'default',
+            scope: 'email,user_friends'
           }
-        });
+        );
 
       }
     });  
