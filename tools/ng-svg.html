@@ -1,0 +1,105 @@
+<!doctype html>
+<html ng-app="todoApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script type="text/javascript">
+      angular.module('todoApp', [])
+      .controller('TodoListController', function() {
+var encStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
+function vector_fromString( v_str ) {
+  v_new = new Array();
+  for (k = 0; k < v_str.length; k++) {
+    s_chr = v_str[k];
+    s_int = encStr.indexOf( s_chr );
+    s_bin = s_int.toString(2);
+    s_bin = String("000000" + s_bin ).slice(-6);
+    for(i = 0; i < 6; i++ ) {
+      value = (s_bin[i] == 1) ? 1:0 ;
+      v_new.push( value );
+    }
+    //console.log( s_chr + ": " + s_int + ": " + s_bin );
+  };
+  return v_new;
+}
+
+function matrix_fromString( m_str ) {
+  //busco la cantidad de bloques por linea
+  m_blks = encStr.indexOf( m_str[0] );
+
+  M = new Array();
+  //console.log( m_blks );
+
+  for( var k = 1; k < m_str.length; k+= m_blks) {
+    v_slice = m_str.slice(k, k+m_blks);
+    //console.log( v_slice );
+    v_bin = vector_fromString( v_slice );
+    //console.log( v_bin );
+    M.push( vector_fromString( v_slice ) );
+  }
+  return M;
+}
+
+
+        var todoList = this;
+        this.txt = "D-Of-eP8SP8eP8YP4PH8GH4ADgAHAAHB-ID5yhhAbxC";
+        this.matrix = matrix_fromString(this.txt);
+        todoList.todos = [
+          {text:'learn angular', done:true},
+          {text:'build an angular app', done:false}];
+     
+        todoList.addTodo = function() {
+          todoList.todos.push({text:todoList.todoText, done:false});
+          todoList.todoText = '';
+        };
+     
+        todoList.remaining = function() {
+          var count = 0;
+          angular.forEach(todoList.todos, function(todo) {
+            count += todo.done ? 0 : 1;
+          });
+          return count;
+        };
+     
+        todoList.archive = function() {
+          var oldTodos = todoList.todos;
+          todoList.todos = [];
+          angular.forEach(oldTodos, function(todo) {
+            if (!todo.done) todoList.todos.push(todo);
+          });
+        };
+      });
+    </script>
+  </head>
+  <body>
+    <h2>Todo</h2>
+    <div ng-controller="TodoListController as todoList">
+      <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+      [ <a href="" ng-click="todoList.archive()">archive</a> ]
+      
+      <ul class="unstyled">
+        <li ng-repeat="todo in todoList.todos">
+          <input type="checkbox" ng-model="todo.done">
+          <span class="done-{{todo.done}}">{{todo.text}}</span>
+        </li>
+      </ul>
+      
+      <form ng-submit="todoList.addTodo()">
+        <input type="text" ng-model="todoList.todoText"  size="30"
+               placeholder="add new todo here">
+        <input class="btn-primary" type="submit" value="add">
+      </form>
+
+      <h3>{{todoList.matrix}}</h3>
+<div style="max-width: 320px">
+  <svg width="100%"
+       height="100%"
+       viewBox="0 0 2 2" >
+      <rect x="0" y="0" width="1" height="1" style="fill:black" />
+      <rect x="1" y="1" width="1" height="1" style="fill:black" />
+  </svg>  
+</div>
+
+    </div>
+  </body>
+</html>
