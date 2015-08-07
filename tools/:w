@@ -49,17 +49,17 @@ function matrix_fromString( m_str ) {
 
         var todoList = this;
 
-        todoList.txt = "DAEoCIYA3UD_0F_yF-yAMfAP3B_3B_jd7nQthezBNfB";
         todoList.txt = "D-Of-eP8SP8eP8YP4PH8GH4ADgAHAAHB-ID5yhhAbxC";
-        var matrix = matrix_fromString(todoList.txt);
+        todoList.txt = "DAEoCIYA3UD_0F_yF-yAMfAP3B_3B_jd7nQthezBNfB";
+        todoList.rows = matrix_fromString(todoList.txt);
 
-        var rows = matrix.length;
-        var cols = matrix[0].length;
+        var rows = todoList.rows.length;
+        var cols = todoList.rows[0].length;
 
         var dots = [];
         for(y = 0; y < rows; y++) {
             for(x = 0; x < cols; x++) {
-                var dot = {x: x, y: y, c: matrix[y][x] };
+                var dot = {x: x, y: y, c: todoList.rows[y][x] };
                 dots.push( dot );
             }
         }
