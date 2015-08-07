@@ -41,13 +41,27 @@ function matrix_fromString( m_str ) {
 }
 
 
+
         var todoList = this;
-        this.txt = "D-Of-eP8SP8eP8YP4PH8GH4ADgAHAAHB-ID5yhhAbxC";
-        this.matrix = matrix_fromString(this.txt);
+
+        todoList.rows = [[ 1, 2, 3, 4 ],
+                     [ 5, 6, 7, 8 ],
+                     [ 9,10,11,12 ]];
+
+        var r = todoList.rows.length;
+        var c = todoList.rows[0].length;
+        todoList.viewBox = "0 0 " + r + " " + c;
+
+        todoList.txt = "D-Of-eP8SP8eP8YP4PH8GH4ADgAHAAHB-ID5yhhAbxC";
+
+        todoList.matrix = matrix_fromString(todoList.txt);
+
+        /*
         todoList.todos = [
           {text:'learn angular', done:true},
           {text:'build an angular app', done:false}];
-     
+        */
+
         todoList.addTodo = function() {
           todoList.todos.push({text:todoList.todoText, done:false});
           todoList.todoText = '';
@@ -72,8 +86,28 @@ function matrix_fromString( m_str ) {
     </script>
   </head>
   <body>
-    <h2>Todo</h2>
+
+    <h2></h2>
     <div ng-controller="TodoListController as todoList">
+
+        <div>
+            <p>{{todoList.viewBox}}</p>
+            <p>hola</p>
+            <div data-ng-repeat="row in todoList.rows track by $index">
+                <div data-ng-repeat="col in row track by $index">{{col%2}}</div>
+            </div>
+        </div>
+
+        <div style="max-width: 16">
+          <svg width="100%"
+               height="100%"
+               viewBox={{todoList.viewBox}} >
+              <rect x="0" y="0" width="1" height="1" style="fill:black" />
+              <rect x="1" y="1" width="1" height="1" style="fill:black" />
+          </svg>  
+        </div>
+
+
       <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
       [ <a href="" ng-click="todoList.archive()">archive</a> ]
       
@@ -89,16 +123,6 @@ function matrix_fromString( m_str ) {
                placeholder="add new todo here">
         <input class="btn-primary" type="submit" value="add">
       </form>
-
-      <h3>{{todoList.matrix}}</h3>
-<div style="max-width: 320px">
-  <svg width="100%"
-       height="100%"
-       viewBox="0 0 2 2" >
-      <rect x="0" y="0" width="1" height="1" style="fill:black" />
-      <rect x="1" y="1" width="1" height="1" style="fill:black" />
-  </svg>  
-</div>
 
     </div>
   </body>
