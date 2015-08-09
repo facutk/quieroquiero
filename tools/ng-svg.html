@@ -1,8 +1,11 @@
 <!doctype html>
 <html ng-app="todoApp">
   <head>
+    <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
     <script type="text/javascript">
+
+
       angular.module('todoApp', [])
       .directive('vbox', function() {
         return {
@@ -13,38 +16,50 @@
           }
         };
       })
+      .directive('myDialog', function() {
+        return {
+          restrict: 'E',
+          transclude: true,
+          scope: {},
+          template:
+            '<div class="alert" ng-transclude>' +
+            '</div>',
+          link: function (scope, element, attributes) {
+            console.log(attributes.anotherParam);
+          }
+        };
+      })
       .controller('TodoListController', function() {
-var encStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+        var encStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
-function vector_fromString( v_str ) {
-  v_new = new Array();
-  for (k = 0; k < v_str.length; k++) {
-    s_chr = v_str[k];
-    s_int = encStr.indexOf( s_chr );
-    s_bin = s_int.toString(2);
-    s_bin = String("000000" + s_bin ).slice(-6);
-    for(i = 0; i < 6; i++ ) {
-      value = (s_bin[i] == 1) ? 1:0 ;
-      v_new.push( value );
-    }
-  };
-  return v_new;
-}
+        function vector_fromString( v_str ) {
+          v_new = new Array();
+          for (k = 0; k < v_str.length; k++) {
+            s_chr = v_str[k];
+            s_int = encStr.indexOf( s_chr );
+            s_bin = s_int.toString(2);
+            s_bin = String("000000" + s_bin ).slice(-6);
+            for(i = 0; i < 6; i++ ) {
+              value = (s_bin[i] == 1) ? 1:0 ;
+              v_new.push( value );
+            }
+          };
+          return v_new;
+        }
 
-function matrix_fromString( m_str ) {
-  //busco la cantidad de bloques por linea
-  m_blks = encStr.indexOf( m_str[0] );
+        function matrix_fromString( m_str ) {
+          //busco la cantidad de bloques por linea
+          m_blks = encStr.indexOf( m_str[0] );
 
-  M = new Array();
+          M = new Array();
 
-  for( var k = 1; k < m_str.length; k+= m_blks) {
-    v_slice = m_str.slice(k, k+m_blks);
-    v_bin = vector_fromString( v_slice );
-    M.push( vector_fromString( v_slice ) );
-  }
-  return M;
-}
-
+          for( var k = 1; k < m_str.length; k+= m_blks) {
+            v_slice = m_str.slice(k, k+m_blks);
+            v_bin = vector_fromString( v_slice );
+            M.push( vector_fromString( v_slice ) );
+          }
+          return M;
+        }
 
 
         var todoList = this;
@@ -73,6 +88,8 @@ function matrix_fromString( m_str ) {
 
     <h2></h2>
     <div ng-controller="TodoListController as todoList">
+
+        <my-dialog another-param="DAEoCIYA3UD_0F_yF-yAMfAP3B_3B_jd7nQthezBNfB"></my-dialog>
 
         <div style="max-width: 240px">
           <svg width="100%"
